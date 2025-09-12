@@ -1,0 +1,4 @@
+L'utilisateur souhaite obtenir une description détaillée du contenu d'une image spécifique et demande donc : "Il y a quoi sur cette image ?" 
+ Pour faciliter la compréhension de cette question par d'autres IA, le prompt pourrait être :
+
+"Décrivez en détail le contenu de l'image actuellement considérée, en identifiant et en expliquant la présence de tous les objets, personnages, arrière-plans et autres éléments visuels qui y sont représentés."

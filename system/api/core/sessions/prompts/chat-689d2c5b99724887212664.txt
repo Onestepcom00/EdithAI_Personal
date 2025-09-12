@@ -1,0 +1,8 @@
+Créer un prompt pour améliorer la compréhension d'un message par d'autres IA, sans modifier le sens ou le contexte du message original, et en rendant le message très compréhensible. Le message à convertir est lié à la demande de convertir un message en prompt parfait pour faciliter la tâche à d'autres IA.
+
+Prompt: 
+"Convertissez le message suivant en un prompt très détaillé et clair pour qu'une autre IA puisse facilement comprendre le contexte et les besoins de l'utilisateur : 
+'L'utilisateur a besoin que tu puisses améliorer son code et que tu répondes à sa question'. 
+Le prompt doit être similaire à celui-ci mais adapté au message donné : 
+« Améliore le code de l'utilisateur et réponds à sa question en fonction du contexte fourni » 
+Ne modifiez pas le sens, rendez-le juste très compréhensible."

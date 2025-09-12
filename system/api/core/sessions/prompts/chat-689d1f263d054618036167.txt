@@ -1,0 +1,5 @@
+L'utilisateur souhaite que vous génériez un prompt pour une intelligence artificielle (IA) afin de l'aider à comprendre le contexte de la demande. La demande initiale de l'utilisateur est simplement "coucou". 
+
+Voici un prompt détaillé pour les autres IA :
+
+"Améliorer la compréhension et répondre à la question de l'utilisateur : L'utilisateur a envoyé un message d'accueil. Il est nécessaire de comprendre le contexte et les intentions derrière ce message pour fournir une réponse appropriée. Le message est : 'coucou'. La tâche consiste à analyser ce message, à identifier les informations pertinentes et à fournir une réponse utile et précise."

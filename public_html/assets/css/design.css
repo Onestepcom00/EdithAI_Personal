@@ -1,0 +1,109 @@
+ body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .glass {
+            background: rgba(20, 21, 25, 0.85);
+            backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+        }
+        
+        .glass-light {
+            background: rgba(25, 26, 31, 0.8);
+            backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+        }
+        
+        .glass-sidebar {
+            background: rgba(12, 13, 16, 0.9);
+            backdrop-filter: blur(20px) saturate(200%);
+            border-right: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .message-bubble {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .user-bubble {
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+        }
+
+        .toast {
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .typing-indicator {
+            opacity: 0.7;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 2px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 92, 246, 0.5);
+        }
+
+        .prose-custom {
+            color: #e5e7eb;
+        }
+
+        .prose-custom h1, .prose-custom h2, .prose-custom h3 {
+            color: #f9fafb;
+        }
+
+        .prose-custom strong {
+            color: #f3f4f6;
+            font-weight: 600;
+        }
+
+        .prose-custom code {
+            background: rgba(139, 92, 246, 0.1);
+            color: #a78bfa;
+            padding: 0.2em 0.4em;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+        }
+
+        .prose-custom pre {
+            background: rgba(17, 17, 19, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .prose-custom pre code {
+            background: none;
+            color: #e5e7eb;
+            padding: 0;
+        }

@@ -1,0 +1,1 @@
+L'utilisateur souhaite savoir comment rechercher un fichier par son nom dans l'éditeur de code Visual Studio Code (VSCode) et a besoin d'une explication détaillée et claire pour comprendre les étapes à suivre afin d'effectuer cette tâche efficacement.

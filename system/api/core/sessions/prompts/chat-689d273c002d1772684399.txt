@@ -1,0 +1,8 @@
+Créer un prompt pour améliorer la compréhension et la réponse à une question spécifique liée à l'amélioration de code :
+
+"Améliorer le code et répondre à une question spécifique : 
+L'utilisateur a besoin d'une aide pour améliorer son code et obtenir une réponse claire à sa question. 
+Veuillez analyser le code fourni, identifier les domaines nécessitant des améliorations, 
+et fournir des suggestions détaillées ainsi que des explications pour améliorer le code. 
+De plus, veuillez répondre de manière précise et claire à la question posée par l'utilisateur.
+"

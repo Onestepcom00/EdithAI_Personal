@@ -1,0 +1,2 @@
+L'utilisateur souhaite engager une conversation pour mieux se connaître et demande si l'interlocuteur serait intéressé par cette démarche. 
+ Générer une réponse pour prendre connaissance de l'envie de l'utilisateur de faire connaissance.

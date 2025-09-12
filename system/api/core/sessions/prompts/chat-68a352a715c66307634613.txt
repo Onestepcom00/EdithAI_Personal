@@ -1,0 +1,12 @@
+Créer un prompt détaillé et compréhensible pour aider une autre IA à améliorer le code et répondre à une question spécifique :
+
+"Améliorer le code et répondre à une question : 
+L'utilisateur a besoin d'une amélioration de son code et d'une réponse claire à une question spécifique. 
+Le but est de fournir une assistance précise pour optimiser le code et apporter une solution pertinente à la question posée.
+Pour cela, il est essentiel de comprendre parfaitement le contexte et les besoins de l'utilisateur.
+Voici les étapes à suivre :
+1. Analyser le code fourni pour identifier les points à améliorer.
+2. Comprendre la question spécifique posée par l'utilisateur.
+3. Fournir des suggestions détaillées pour améliorer le code.
+4. Répondre de manière claire et précise à la question posée.
+Quelles sont les actions à entreprendre pour améliorer le code et répondre efficacement à la question de l'utilisateur ?"

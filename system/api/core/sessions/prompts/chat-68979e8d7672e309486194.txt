@@ -1,0 +1,1 @@
+L'utilisateur souhaite obtenir un exemple de code HTML qui affiche le message "Hello World" et a besoin d'aide pour comprendre comment écrire ce code ou améliorer un code existant pour atteindre cet objectif.

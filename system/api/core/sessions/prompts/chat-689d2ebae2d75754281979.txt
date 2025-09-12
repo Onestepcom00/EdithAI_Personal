@@ -1,0 +1,3 @@
+Créer un prompt détaillé et compréhensible pour aider une autre IA à comprendre le contexte et répondre efficacement à la demande de l'utilisateur :
+
+"Générer un prompt parfait pour faciliter la tâche à d'autres IA de mieux comprendre le contexte. Le prompt doit être détaillé, bien expliqué et très clair pour permettre à une IA de comprendre efficacement. L'utilisateur demande que le message soit converti en prompt sans modifier le sens ou le contexte, mais en le rendant très compréhensible. Le message doit être similaire à celui où l'utilisateur a besoin d'améliorer son code et qu'on réponde à sa question, mais il est important de noter que ce n'est pas à moi que l'on s'adresse."

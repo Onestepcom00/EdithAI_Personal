@@ -1,0 +1,1 @@
+L'utilisateur souhaite connaitre le contenu de sa conversation récente, veuillez fournir un résumé détaillé de toutes les interactions précédentes avec cet utilisateur, y compris les questions posées et les réponses apportées, afin de faciliter la compréhension de son contexte actuel.

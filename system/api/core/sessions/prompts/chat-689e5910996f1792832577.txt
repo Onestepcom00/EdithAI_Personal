@@ -1,0 +1,1 @@
+Génère un prompt pour aider une IA à comprendre le contexte et répondre à la question d'un utilisateur qui demande 'dis-moi ce que tu vois' sans modifier le sens ni le contexte du message, en rendant le prompt très compréhensible, détaillé et clair.

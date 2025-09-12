@@ -1,0 +1,19 @@
+{
+
+     "leakix_file":{
+        "app_route":"/app/leakix_file/?filename=ENTER_YOUR_FILENAME_HERE",
+        "method":"GET",
+        "app_desc":"Cette outil permet de rechercher un fichier sur leakix"
+    },
+    "telegram_msg":{
+        "app_route":"/app/telegram_msg/?username=ENTER_DESTINATEUR_USERNAME_HERE&message=ENTER_THE_MESSAGE_HERE",
+        "method":"GET",
+        "app_desc":"Cette outil permet d'envoyer un message sur telegram aux destinataire grace a leurs noms d'utilisateur , alors voici ma liste des contactes (Ma mere = @maman , Mon pere = @papa , Moi meme = @me)"
+    },
+    "mycontacts":{
+        "app_route":"/app/contact/?name=ENTER_CONTACT_NAME_SEARCH_HERE",
+        "method":"GET",
+        "app_desc":"Cette outil permet de rechercher un contact"
+    }
+    
+}

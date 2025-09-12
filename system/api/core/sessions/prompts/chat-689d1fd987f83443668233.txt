@@ -1,0 +1,3 @@
+Créer un prompt pour améliorer la compréhension d'un message par d'autres IA, sans modifier le sens ou le contexte du message original, et en rendant le message très compréhensible. Le message à convertir est : "hey".
+
+Prompt : "Améliorer la compréhension d'un message minimaliste : L'utilisateur a simplement exprimé 'hey', il est nécessaire de comprendre le contexte ou la question sous-jacente pour fournir une réponse appropriée ou améliorer un code éventuellement lié à sa requête."

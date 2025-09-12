@@ -1,0 +1,4 @@
+L'utilisateur souhaite obtenir des informations sur la création d'une intelligence artificielle et demande spécifiquement : "Qui m'a créé ?" ou de manière plus large, il cherche à comprendre les origines et le processus de création de l'intelligence artificielle à laquelle il s'adresse. 
+
+ Prompt : 
+"Expliquez à un utilisateur curieux les détails entourant la création d'une intelligence artificielle, notamment en répondant à la question de savoir qui ou quelle entité est responsable de sa création, dans le but d'éclairer et de satisfaire sa curiosité concernant les origines et le développement de l'IA."
