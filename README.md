@@ -75,6 +75,11 @@ git clone https://github.com/Onestepcom00/EdithAI_Personal
     - `tools/` : Placez ici vos outils personnalisés.
 
 ---
+## ScreenShot Mobile
+
+(./public_html/assets/image/mobile1.jpeg)
+(./public_html/assets/image/mobile2.jpeg)
+---
 
 ## Conclusion
 
