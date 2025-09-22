@@ -1,9 +1,15 @@
-<script>
+ <!-- 
+   *******************************************
+   * Installer le fichier de configuration JS
+   *******************************************
+    -->
+   <script src="assets/js/config.js"></script>
+   <script>
             // Initialize Lucide icons
         lucide.createIcons();
 
         // Model management
-        const availableModels = ['GPT-4', 'GPT-3.5-Turbo', 'Claude-3', 'Gemini-Pro', 'GPT-4-Turbo'];
+        const availableModels = ['EdithAI-P1', 'EdithAI-P2', 'LLama-3.1', ];
         let currentModel = localStorage.getItem('selectedModel') || 'GPT-4';
         let toolsSelected = false;
         let uploadedFile = null;
@@ -128,7 +134,7 @@
             formData.append("message", message);
             formData.append("chat_id", chatId);
             formData.append("model", currentModel || "gpt-4");
-            formData.append("tools", toolsSelected ? "true" : "");
+            formData.append("tools", toolsSelected ? "true" : "false");
 
             // Ne pas envoyer "tools" si non sélectionné
             if (toolsSelected) {
@@ -150,19 +156,13 @@
             filePreview.classList.add("hidden");
             fileInput.value = "";
 
-            // Reset état du bouton tools
-            if (toolsSelected) {
-                toolsSelected = false;
-                toolsBtn.classList.remove("bg-purple-600/20", "border", "border-purple-500/30");
-                toolsBtn.querySelector("i").classList.add("text-gray-500");
-                toolsBtn.querySelector("i").classList.remove("text-purple-400");
-            }
+            
 
             // Affiche le typing
             showTypingIndicator();
 
             try {
-                const response = await fetch("http://localhost/EDITHAI_PROJET/system/api/chat/", {
+                const response = await fetch(BASE_API_URL+"/api/chat/", {
                     method: "POST",
                     body: formData
                 });
@@ -797,8 +797,9 @@
                    // console.log(url); // affiche "chat/xxxxxx"
                    var urlChat = url;
                    //window.location.href = urlChat;
-                   const domainHost = window.location.origin;
-                   window.location.href = `${domainHost}/${urlChat}`;
+                   const domainHost = BASE_APP_URL;
+                   windows.location.href = domainHost+url;
+                  // window.location.href = `${domainHost}${urlChat}`;
                 });
 
                 
@@ -947,7 +948,7 @@
          * 
          */
         async function startNewChat() {
-            const apiUrl = "http://localhost/EDITHAI_PROJET/system/api/news_chat/?start=true";
+            const apiUrl = BASE_API_URL+"/api/news_chat/?start=true";
 
             try {
                 // 1. Envoyer la requête GET
@@ -966,7 +967,7 @@
 
                 // 4. Extraire l'ID et convertir en "chat/ID"
                 const chatId = data.id; // ex: chat-688cc881e7b3d5.60501324
-                const formattedId = chatId.replace("chat-", "chat/");
+                const formattedId = chatId.replace("chat-", "chat-");
 
                 // 5. Stocker dans une variable globale ou locale
                 //window.currentChatUrl = formattedId;
@@ -991,7 +992,7 @@
             const container = document.getElementById("chatHistory");
 
             try {
-                const response = await fetch("http://localhost/EDITHAI_PROJET/system/api/chat_list/?getHistory=true");
+                const response = await fetch(BASE_API_URL+"/api/chat_list/?getHistory=true");
                 if (!response.ok) throw new Error("Erreur API");
 
                 const data = await response.json();
@@ -1006,11 +1007,11 @@
                         div.className = "px-3 py-2.5 rounded-lg hover:bg-gray-850/60 transition-all cursor-pointer group";
 
                         // Transformation de l'ID → remplace les '-' par '/'
-                        const convertedId = chat.id.replace(/-/g, "/");
+                        const convertedId = chat.id.replace(/-/g, "-");
 
                         // Redirection au clic
                         div.addEventListener("click", () => {
-                            window.location.href = `http://edithai.local/${convertedId}`;
+                            window.location.href = BASE_APP_URL+`/${convertedId}`;
                         });
 
                         // Titre
@@ -1107,7 +1108,7 @@
             const chatContainer = document.getElementById("chatContainer");
 
             try {
-                const response = await fetch(`http://localhost/EDITHAI_PROJET/system/api/chat_list/?getChatID=${encodeURIComponent(chatId)}`);
+                const response = await fetch(BASE_API_URL+`/api/chat_list/?getChatID=${encodeURIComponent(chatId)}`);
                 if (!response.ok) throw new Error("Erreur API");
 
                 const data = await response.json();
@@ -1195,3 +1196,5 @@
          * 
          */
         document.addEventListener("DOMContentLoaded", loadChatHistory);
+
+   </script>

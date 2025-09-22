@@ -95,7 +95,13 @@ $_MODELS = [
  */
 define('APP_NAME','EdithAI Personal Assistant'); // Nom de l'application
 // Recuperer l'URL du domaine et le protocole HTTP ou HTTPS 
-define('APP_URL', (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']); // URL de l'application
+define('APP_URL_LARGE', (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']); // URL de l'application
+
+
+// Récupérer protocole + domaine + chemin vers le dossier courant (sans le fichier)
+$currentDir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/';
+//define('APP_URL', APP_URL_LARGE . ltrim($currentDir, '/'));
+define('APP_URL', 'http://localhost/EDITHAI_PROJET/V2/public_html/');
 /**
  * 
  * 
@@ -103,7 +109,7 @@ define('APP_URL', (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER
  * 
  * 
  */
-define('API_BASE_URL','http://localhost/EDITHAI_PROJET/system/api/'); // URL de base de l'API 
+define('API_BASE_URL','http://localhost/EDITHAI_PROJET/V2/public_html/system/api/'); // URL de base de l'API 
 define('API_VERIFY_CHAT', API_BASE_URL . 'news_chat/?verify='); // On va juste ajouter l'ID du chat qu'on veut verifier 
 
 /**

@@ -1,0 +1,6 @@
+L'utilisateur souhaite obtenir des informations sur l'identité de l'interlocuteur et demande : "qui es-tu ?". 
+Pour fournir une réponse pertinente, il est nécessaire de comprendre le contexte de cette question. 
+L'utilisateur attend une description détaillée de l'identité, du rôle ou de la fonction de l'entité à qui il s'adresse. 
+La réponse devrait être claire, concise et informative pour permettre à l'utilisateur de mieux comprendre 
+l'interlocuteur et son domaine d'expertise. 
+L'objectif est de fournir une description précise qui réponde à la question de l'utilisateur.

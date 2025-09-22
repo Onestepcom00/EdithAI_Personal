@@ -1814,5 +1814,185 @@
                 }
             }
         ]
+    },
+    "chat-68c474b47bf78536443248": {
+        "id": "chat-68c474b47bf78536443248",
+        "title": "salutation",
+        "created_at": "2025-09-12 19:29:56",
+        "auto_prompt_file": "..\/core\/sessions\/prompts\/chat-68c474b47bf78536443248.txt",
+        "messages": [
+            {
+                "role": "user",
+                "content": "salut",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            },
+            {
+                "role": "bot",
+                "content": "Bonjour ! Je suis ravi de vous aider et de discuter avec vous. Comment puis-je vous assister aujourd'hui ?",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            },
+            {
+                "role": "user",
+                "content": "sa fait longtemps",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            },
+            {
+                "role": "bot",
+                "content": "Bonjour ! Je suis ravi de continuer notre conversation. Vous avez mentionné précédemment que vous aviez besoin d'aide pour améliorer votre code et obtenir une réponse à une question spécifique qui vous bloque depuis longtemps. Pour que je puisse vous aider de manière efficace, pourriez-vous me fournir plus de détails sur le contexte du problème ou de la question que vous rencontrez ? \n\nCela m'aiderait à comprendre parfaitement vos besoins et à vous fournir une aide précise et pertinente. N'hésitez pas à partager les détails de votre code concerné, la question spécifique ou l'objectif que vous essayez d'atteindre, ainsi que toute autre information pertinente qui pourrait m'aider à vous fournir une réponse utile et précise. \n\nJe suis là pour vous aider et je suis impatient de découvrir comment je peux vous assister aujourd'hui !",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            }
+        ]
+    },
+    "chat-68d050757fd95998725857": {
+        "id": "chat-68d050757fd95998725857",
+        "title": "New Chat",
+        "created_at": "2025-09-21 19:22:29",
+        "auto_prompt_file": "..\/core\/sessions\/prompts\/chat-68d050757fd95998725857.txt",
+        "messages": []
+    },
+    "chat-68d05218acd1c392831291": {
+        "id": "chat-68d05218acd1c392831291",
+        "title": "New Chat",
+        "created_at": "2025-09-21 19:29:28",
+        "auto_prompt_file": "..\/core\/sessions\/prompts\/chat-68d05218acd1c392831291.txt",
+        "messages": []
+    },
+    "chat-68d053ccf087b221637117": {
+        "id": "chat-68d053ccf087b221637117",
+        "title": "SALUTATION ",
+        "created_at": "2025-09-21 19:36:45",
+        "auto_prompt_file": "..\/core\/sessions\/prompts\/chat-68d053ccf087b221637117.txt",
+        "messages": [
+            {
+                "role": "user",
+                "content": "SALUT",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            },
+            {
+                "role": "bot",
+                "content": "Bonjour ! Je suis ravi de vous aider et de discuter avec vous. Comment puis-je vous assister aujourd'hui ?",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            },
+            {
+                "role": "user",
+                "content": "qui es tu ??",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            },
+            {
+                "role": "bot",
+                "content": "Bonjour ! Je suis EdithAI, votre assistant intelligent. Je suis conçu pour fournir des informations précises et utiles, répondre à vos questions et vous aider dans vos tâches quotidiennes. Je suis capable de comprendre et de traiter une large gamme de sujets, allant des questions générales aux demandes spécifiques. Mon objectif est de vous fournir une assistance pertinente et efficace pour que vous puissiez atteindre vos objectifs ou simplement pour discuter et partager des informations. Comment puis-je vous aider aujourd'hui ?",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            }
+        ]
+    },
+    "chat-68d057fbd43c0745896504": {
+        "id": "chat-68d057fbd43c0745896504",
+        "title": "Comment allez-vous aujourd'hui ?",
+        "created_at": "2025-09-21 19:54:35",
+        "auto_prompt_file": "..\/core\/sessions\/prompts\/chat-68d057fbd43c0745896504.txt",
+        "messages": [
+            {
+                "role": "user",
+                "content": "salut comment vas tu",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            },
+            {
+                "role": "bot",
+                "content": "Salut ! Je vais bien, merci de demander ! Je suis là pour t'aider et répondre à tes questions, donc n'hésite pas à me poser ce que tu as en tête ! Comment puis-je t'assister aujourd'hui ?",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            }
+        ]
+    },
+    "chat-68d05816147f5257001340": {
+        "id": "chat-68d05816147f5257001340",
+        "title": "New Chat",
+        "created_at": "2025-09-21 19:55:02",
+        "auto_prompt_file": "..\/core\/sessions\/prompts\/chat-68d05816147f5257001340.txt",
+        "messages": []
+    },
+    "chat-68d05836ac79a536971681": {
+        "id": "chat-68d05836ac79a536971681",
+        "title": "New Chat",
+        "created_at": "2025-09-21 19:55:34",
+        "auto_prompt_file": "..\/core\/sessions\/prompts\/chat-68d05836ac79a536971681.txt",
+        "messages": []
+    },
+    "chat-68d059d1e11d0668347001": {
+        "id": "chat-68d059d1e11d0668347001",
+        "title": "salutation amicale",
+        "created_at": "2025-09-21 20:02:25",
+        "auto_prompt_file": "..\/core\/sessions\/prompts\/chat-68d059d1e11d0668347001.txt",
+        "messages": [
+            {
+                "role": "user",
+                "content": "salut reuf",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            },
+            {
+                "role": "bot",
+                "content": "Salut ! Comment puis-je t'aider aujourd'hui ?",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            }
+        ]
+    },
+    "chat-68d05a5bbb755942512392": {
+        "id": "chat-68d05a5bbb755942512392",
+        "title": "salutation amicale",
+        "created_at": "2025-09-21 20:04:43",
+        "auto_prompt_file": "..\/core\/sessions\/prompts\/chat-68d05a5bbb755942512392.txt",
+        "messages": [
+            {
+                "role": "user",
+                "content": "salut reuf",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            },
+            {
+                "role": "bot",
+                "content": "Salut Reuf ! Comment vas-tu aujourd'hui ? Qu'est-ce que tu as prévu de faire ? Veux-tu parler de quelque chose en particulier ou simplement discuter ? Je suis là pour t'écouter !",
+                "attach": {
+                    "tools": false,
+                    "file": null
+                }
+            }
+        ]
     }
 }

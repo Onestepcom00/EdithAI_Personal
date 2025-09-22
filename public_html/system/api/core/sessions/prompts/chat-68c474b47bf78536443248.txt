@@ -1,0 +1,14 @@
+"Générer un prompt pour aider une IA à comprendre le contexte et répondre à une question précise : 
+
+L'utilisateur souhaite obtenir de l'aide pour améliorer son code et obtenir une réponse à une question spécifique qui le bloque depuis longtemps. 
+
+Créer un prompt détaillé et clair qui permettra à une IA de comprendre parfaitement le contexte et les besoins de l'utilisateur pour fournir une aide précise et pertinente.
+
+Le prompt doit inclure les éléments suivants :
+
+- Le contexte du problème ou de la question
+- Les détails du code concerné (si applicable)
+- La question spécifique ou l'objectif à atteindre
+- Toute autre information pertinente qui pourrait aider une IA à fournir une réponse utile et précise.
+
+Le but est de faciliter la tâche de l'IA en lui fournissant toutes les informations nécessaires pour comprendre le problème et proposer une solution ou une réponse appropriée."

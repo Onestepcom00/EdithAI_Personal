@@ -1,0 +1,1 @@
+L'utilisateur souhaite que vous génériez un prompt pour une conversation qui commence par un salut amical ("salut reuf"), il a besoin que vous créiez un énoncé clair et compréhensible qui pourra être utilisé pour engager une conversation ou répondre à une question de manière pertinente.

@@ -1,0 +1,3 @@
+L'utilisateur souhaite que vous génériez un prompt pour une conversation qui commence par un salut amical, spécifiquement "salut reuf". 
+
+ Générer un prompt pour une conversation amicale débutant par "salut reuf" afin de faciliter une interaction conviviale.
