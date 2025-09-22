@@ -76,9 +76,10 @@ git clone https://github.com/Onestepcom00/EdithAI_Personal
 
 ---
 ## ScreenShot Mobile
-
-[![Ecran 1](./public_html/assets/image/mobile1.jpeg)]
-[![Ecran 2](./public_html/assets/image/mobile2.jpeg)]
+<p align="center">
+    <img src="./public_html/assets/image/mobile1.jpeg" alt="Ecran 1" width="250"/>
+    <img src="./public_html/assets/image/mobile2.jpeg" alt="Ecran 2" width="250"/>
+</p>
 ---
 
 ## Conclusion
