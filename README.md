@@ -1,4 +1,4 @@
-[![EdithAI Personal : Agent IA  capable d'effectuer des taches ](./public_html/assets/image/logo-edithai.jpg)]
+[![EdithAI Personal : Agent IA  capable d'effectuer des taches ](./public_html/assets/image/capture.png)]
 
 # EdithAI Personal : Agent IA capable d'effectuer des tâches
 
