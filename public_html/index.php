@@ -261,16 +261,105 @@ if (isset($_GET['id'])) {
             color: #e5e7eb;
             padding: 0;
         }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .sidebar-mobile {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 40;
+            }
+            
+            .sidebar-mobile.open {
+                transform: translateX(0);
+            }
+            
+            .mobile-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 30;
+            }
+            
+            .mobile-overlay.open {
+                display: block;
+            }
+            
+            .mobile-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 20;
+                background: rgba(10, 11, 15, 0.95);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            }
+            
+            .mobile-input-container {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 20;
+                background: rgba(10, 11, 15, 0.95);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(139, 92, 246, 0.1);
+            }
+            
+            .chat-container-mobile {
+                padding-top: 5rem; /* Plus d'espace pour le header mobile */
+                padding-bottom: 9rem; /* Plus d'espace pour l'input mobile */
+                min-height: 100vh;
+            }
+            
+            .message-bubble {
+                max-width: 85%;
+            }
+            
+            .user-bubble {
+                max-width: 85%;
+            }
+
+            /* Espacement supplémentaire pour le premier message sur mobile */
+            .first-message-mobile {
+                margin-top: 2rem !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans antialiased">
     <!-- Toast Container -->
     <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-2"></div>
 
+    <!-- Mobile Overlay -->
+    <div id="mobileOverlay" class="mobile-overlay lg:hidden"></div>
+
     <!-- Sidebar -->
-    <div class="fixed left-0 top-0 h-full w-72 glass-sidebar p-5 flex flex-col">
-        <!-- Logo -->
-        <div class="mb-8 px-1">
+    <div class="fixed left-0 top-0 h-full w-72 glass-sidebar p-5 flex flex-col sidebar-mobile lg:translate-x-0">
+        <!-- Mobile Header -->
+        <div class="lg:hidden flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-xl flex items-center justify-center shadow-lg">
+                    <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-semibold text-gray-100">
+                        <?=$_TEXT['sidebar']['name'];?>
+                    </h1>
+                </div>
+            </div>
+            <button id="closeSidebar" class="p-2 hover:bg-gray-800/50 rounded-lg">
+                <i data-lucide="x" class="w-5 h-5 text-gray-400"></i>
+            </button>
+        </div>
+
+        <!-- Logo (Desktop only) -->
+        <div class="mb-8 px-1 hidden lg:block">
             <div class="flex items-center space-x-3">
                 <div class="w-9 h-9 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-xl flex items-center justify-center shadow-lg">
                     <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
@@ -288,19 +377,19 @@ if (isset($_GET['id'])) {
 
         <!-- Navigation Items -->
         <div class="space-y-2 mb-8">
-            <button class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl glass-light hover:bg-purple-600/20 transition-all duration-200 group">
+            <button class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl glass-light hover:bg-purple-600/20 transition-all duration-200 group new-chat-btn">
                 <i data-lucide="plus" class="w-4 h-4 text-gray-400 group-hover:text-purple-400"></i>
                 <span class="text-sm font-medium text-gray-300 group-hover:text-gray-100">
                     <?=$_TEXT['sidebar']['btn_nchat'];?>
                 </span>
             </button>
-            <button class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl hover:bg-gray-850/60 transition-all duration-200 group">
+            <button class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl hover:bg-gray-850/60 transition-all duration-200 group search-btn">
                 <i data-lucide="search" class="w-4 h-4 text-gray-500 group-hover:text-gray-400"></i>
                 <span class="text-sm text-gray-400 group-hover:text-gray-300">
                     <?=$_TEXT['sidebar']['btn_search'];?>
                 </span>
             </button>
-            <button class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl hover:bg-gray-850/60 transition-all duration-200 group">
+            <button class="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl hover:bg-gray-850/60 transition-all duration-200 group tools-btn">
                 <i data-lucide="wrench" class="w-4 h-4 text-gray-500 group-hover:text-gray-400"></i>
                 <span class="text-sm text-gray-400 group-hover:text-gray-300">
                     <?=$_TEXT['sidebar']['btn_tools'];?>
@@ -312,22 +401,7 @@ if (isset($_GET['id'])) {
         <div class="flex-1 overflow-y-auto scrollbar-thin">
             <h3 class="text-xs font-medium text-gray-500 mb-4 px-1 uppercase tracking-wider">Recent Chats</h3>
             <div class="space-y-1" id="chatHistory">
-                <div class="px-3 py-2.5 rounded-lg hover:bg-gray-850/60 transition-all cursor-pointer group">
-                    <p class="text-sm text-gray-300 truncate group-hover:text-gray-100">How to build a modern website</p>
-                    <p class="text-xs text-gray-500 mt-0.5">2 hours ago</p>
-                </div>
-                <div class="px-3 py-2.5 rounded-lg hover:bg-gray-850/60 transition-all cursor-pointer group">
-                    <p class="text-sm text-gray-300 truncate group-hover:text-gray-100">JavaScript best practices guide</p>
-                    <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
-                </div>
-                <div class="px-3 py-2.5 rounded-lg hover:bg-gray-850/60 transition-all cursor-pointer group">
-                    <p class="text-sm text-gray-300 truncate group-hover:text-gray-100">AI model comparison analysis</p>
-                    <p class="text-xs text-gray-500 mt-0.5">3 days ago</p>
-                </div>
-                <div class="px-3 py-2.5 rounded-lg hover:bg-gray-850/60 transition-all cursor-pointer group">
-                    <p class="text-sm text-gray-300 truncate group-hover:text-gray-100">React component patterns</p>
-                    <p class="text-xs text-gray-500 mt-0.5">1 week ago</p>
-                </div>
+                <!-- L'historique sera chargé dynamiquement -->
             </div>
         </div>
 
@@ -358,9 +432,32 @@ if (isset($_GET['id'])) {
     </div>
 
     <!-- Main Content -->
-    <div class="ml-72 flex flex-col h-screen">
-        <!-- Header -->
-        <div class="border-b border-gray-850 px-6 py-4">
+    <div class="lg:ml-72 flex flex-col h-screen">
+        <!-- Mobile Header -->
+        <div class="mobile-header lg:hidden px-4 py-3 flex items-center justify-between">
+            <button id="menuButton" class="p-2 hover:bg-gray-800/50 rounded-lg">
+                <i data-lucide="menu" class="w-5 h-5 text-gray-400"></i>
+            </button>
+            
+            <div class="flex items-center space-x-2">
+                <!-- Call Button -->
+                <button id="callButton" class="flex items-center space-x-2 px-3 py-1.5 bg-green-600/20 hover:bg-green-600/30 rounded-lg border border-green-500/30 transition-all">
+                    <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                    <span class="text-xs text-green-400 font-medium">Call</span>
+                    <i data-lucide="phone" class="w-3 h-3 text-green-400"></i>
+                </button>
+                
+                <div class="flex items-center space-x-2 px-3 py-1.5 bg-gray-900/60 rounded-lg border border-gray-800">
+                    <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                    <span class="text-xs text-gray-400">
+                        <?= $_TEXT['bot']['status']; ?>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop Header -->
+        <div class="border-b border-gray-850 px-6 py-4 hidden lg:block">
             <div class="max-w-4xl mx-auto flex items-center justify-between">
                 <div>
                     <h2 class="text-lg font-semibold text-gray-100">
@@ -371,6 +468,13 @@ if (isset($_GET['id'])) {
                     </p>
                 </div>
                 <div class="flex items-center space-x-2">
+                    <!-- Call Button Desktop -->
+                    <button id="callButtonDesktop" class="flex items-center space-x-2 px-3 py-1.5 bg-green-600/20 hover:bg-green-600/30 rounded-lg border border-green-500/30 transition-all">
+                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                        <span class="text-xs text-green-400 font-medium">Call</span>
+                        <i data-lucide="phone" class="w-3 h-3 text-green-400"></i>
+                    </button>
+                    
                     <div class="flex items-center space-x-2 px-3 py-1.5 bg-gray-900/60 rounded-lg border border-gray-800">
                         <div class="w-2 h-2 bg-green-400 rounded-full"></div>
                         <span class="text-xs text-gray-400">
@@ -382,10 +486,10 @@ if (isset($_GET['id'])) {
         </div>
 
         <!-- Chat Messages -->
-        <div class="flex-1 p-6 overflow-y-auto scrollbar-thin" id="chatContainer">
+        <div class="flex-1 p-6 overflow-y-auto scrollbar-thin chat-container-mobile" id="chatContainer">
             <div class="max-w-4xl mx-auto space-y-6">
-                <!-- Bot Welcome Message -->
-                <div class="flex items-start space-x-4">
+                <!-- Bot Welcome Message - Ajout de la classe first-message-mobile pour l'espacement sur mobile -->
+                <div class="flex items-start space-x-4 first-message-mobile">
                     <div class="w-8 h-8 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
                         <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
                     </div>
@@ -401,7 +505,7 @@ if (isset($_GET['id'])) {
         </div>
 
         <!-- Input Area -->
-        <div class="border-t border-gray-850 p-6">
+        <div class="border-t border-gray-850 p-6 mobile-input-container lg:relative">
             <div class="max-w-4xl mx-auto">
                 <div class="glass rounded-2xl p-4">
                     <!-- Text Input Area -->
@@ -448,7 +552,7 @@ if (isset($_GET['id'])) {
                             </button>
                             
                             <!-- Model Selector -->
-                            <button class="px-3 py-2 hover:bg-gray-800/60 rounded-lg transition-all duration-200 text-xs text-gray-400 hover:text-gray-300 border border-gray-800/60 hover:border-gray-700" id="modelBtn">
+                            <button class="px-3 py-2 hover:bg-gray-800/60 rounded-lg transition-all duration-200 text-xs text-gray-400 hover:text-gray-300 border border-gray-800/60 hover:border-gray-700 hidden lg:flex" id="modelBtn">
                                 <span class="flex items-center space-x-2">
                                     <span>GPT-4</span>
                                     <i data-lucide="chevron-down" class="w-3 h-3"></i>
@@ -464,7 +568,7 @@ if (isset($_GET['id'])) {
                         >
                             <div class="flex items-center space-x-2">
                                 <i data-lucide="send" class="w-4 h-4 text-white"></i>
-                                <span class="text-sm font-medium text-white">
+                                <span class="text-sm font-medium text-white hidden lg:inline">
                                     <?=$_TEXT['page']['send_message'];?>
                                 </span>
                             </div>
@@ -473,27 +577,67 @@ if (isset($_GET['id'])) {
                 </div>
                 
                 <!-- Footer Info -->
-                <p class="text-xs text-gray-500 text-center mt-3">
+                <p class="text-xs text-gray-500 text-center mt-3 hidden lg:block">
                     <?= $_TEXT['info'];?>
                 </p>
             </div>
         </div>
     </div>
 
-   <!-- <script src="script.js"></script> -->
-   <!-- 
-   *******************************************
-   * Installer le fichier de configuration JS
-   *******************************************
-    -->
    <script src="assets/js/config.js"></script>
    <script>
     // Initialize Lucide icons
     lucide.createIcons();
 
+    // Mobile sidebar functionality
+    const menuButton = document.getElementById('menuButton');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const sidebar = document.querySelector('.sidebar-mobile');
+
+    function openSidebar() {
+        sidebar.classList.add('open');
+        mobileOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebarFunc() {
+        sidebar.classList.remove('open');
+        mobileOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    if (menuButton) {
+        menuButton.addEventListener('click', openSidebar);
+    }
+
+    if (closeSidebar) {
+        closeSidebar.addEventListener('click', closeSidebarFunc);
+    }
+
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', closeSidebarFunc);
+    }
+
+    // Call button functionality
+    function handleCall() {
+        showToast('Call feature coming soon!', 'info', 3000);
+    }
+
+    const callButton = document.getElementById('callButton');
+    const callButtonDesktop = document.getElementById('callButtonDesktop');
+
+    if (callButton) {
+        callButton.addEventListener('click', handleCall);
+    }
+
+    if (callButtonDesktop) {
+        callButtonDesktop.addEventListener('click', handleCall);
+    }
+
     // Model management
     const availableModels = ['EdithAI-P1', 'EdithAI-P2', 'LLama-3.1'];
-    let currentModel = localStorage.getItem('selectedModel') || 'GPT-4';
+    let currentModel = localStorage.getItem('selectedModel') || 'EdithAI-P1';
     let toolsSelected = false;
     let uploadedFile = null;
 
@@ -510,12 +654,14 @@ if (isset($_GET['id'])) {
     let pendingMessage = null;
 
     // Initialize model button text
-    modelBtn.innerHTML = `
-        <span class="flex items-center space-x-2">
-            <span>${currentModel}</span>
-            <i data-lucide="chevron-down" class="w-3 h-3"></i>
-        </span>
-    `;
+    if (modelBtn) {
+        modelBtn.innerHTML = `
+            <span class="flex items-center space-x-2">
+                <span>${currentModel}</span>
+                <i data-lucide="chevron-down" class="w-3 h-3"></i>
+            </span>
+        `;
+    }
 
     /**
      * 
@@ -551,7 +697,6 @@ if (isset($_GET['id'])) {
         toastContainer.appendChild(toast);
         lucide.createIcons();
         
-        // Auto remove after duration
         setTimeout(() => {
             if (toast.parentElement) {
                 toast.style.animation = 'slideInRight 0.3s ease-out reverse';
@@ -570,7 +715,6 @@ if (isset($_GET['id'])) {
         this.style.height = 'auto';
         this.style.height = Math.min(this.scrollHeight, 128) + 'px';
         
-        // Show/hide send button based on input
         const hasContent = this.value.trim();
         if (hasContent) {
             sendBtn.classList.remove('opacity-0', 'pointer-events-none');
@@ -646,14 +790,11 @@ if (isset($_GET['id'])) {
         }
 
         // Si on a un chatId, envoyer normalement le message
-        // FormData pour l'envoi type multipart/form-data
         const formData = new FormData();
         formData.append("message", message);
         formData.append("chat_id", chatId);
         formData.append("model", currentModel || "gpt-4");
-        formData.append("tools", toolsSelected ? "true" : "false");
 
-        // Ne pas envoyer "tools" si non sélectionné
         if (toolsSelected) {
             formData.append("tools", "true"); 
         }
@@ -697,11 +838,6 @@ if (isset($_GET['id'])) {
             resetSendButton();
         }
     }
-    /**
-     * 
-     * Fonction pour reinitialiser le bouton d'envoie
-     * 
-     */
 
     function resetSendButton() {
         sendBtn.innerHTML = `
@@ -715,13 +851,16 @@ if (isset($_GET['id'])) {
         sendBtn.disabled = true;
         lucide.createIcons();
     }
-    /**
-     * 
-     * 
-     * La fonction pour afficher le message de l'utilisateur 
-     * 
-     * 
-     */
+
+    function smoothScrollToBottom() {
+        setTimeout(() => {
+            chatContainer.scrollTo({
+                top: chatContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 100);
+    }
+
     function addUserMessage(message, file, toolsEnabled) {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'flex items-start space-x-4 justify-end';
@@ -780,15 +919,11 @@ if (isset($_GET['id'])) {
         const chatContent = chatContainer.querySelector('.max-w-4xl');
         chatContent.appendChild(messageDiv);
         lucide.createIcons();
-        smoothScrollToBottom();
+        
+        // Ajouter un délai pour garantir que le DOM est mis à jour
+        setTimeout(smoothScrollToBottom, 150);
     }
 
-    /**
-     * 
-     * La fonction pour gerer l'affichage du message du bot 
-     * 
-     * 
-     */
     function addBotMessage(message) {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'flex items-start space-x-4';
@@ -803,17 +938,36 @@ if (isset($_GET['id'])) {
         
         const chatContent = chatContainer.querySelector('.max-w-4xl');
         chatContent.appendChild(messageDiv);
-        
-        // Re-initialize Lucide icons
         lucide.createIcons();
-        smoothScrollToBottom();
+        
+        // Ajouter un délai pour garantir que le DOM est mis à jour
+        setTimeout(smoothScrollToBottom, 150);
     }
 
-    /**
-     * 
-     * la fonction pour afficher le typing indicator ... (entrain d'ecrire)
-     * 
-     */
+    // Fonction pour ajuster automatiquement l'espacement sur mobile
+    function adjustMobileSpacing() {
+        if (window.innerWidth < 768) {
+            const chatContent = chatContainer.querySelector('.max-w-4xl');
+            if (chatContent) {
+                const messages = chatContent.querySelectorAll('.flex.items-start');
+                if (messages.length > 0) {
+                    // Premier message
+                    messages[0].classList.add('first-message-mobile');
+                    
+                    // Dernier message
+                    messages[messages.length - 1].classList.add('last-message-mobile');
+                }
+            }
+        }
+    }
+
+    // Appeler cette fonction après chaque ajout de message
+    setTimeout(adjustMobileSpacing, 200);
+
+    // Et aussi lors du redimensionnement de la fenêtre
+    window.addEventListener('resize', adjustMobileSpacing);
+
+    
     function showTypingIndicator() {
         const typingDiv = document.createElement('div');
         typingDiv.id = 'typingIndicator';
@@ -840,11 +994,6 @@ if (isset($_GET['id'])) {
         smoothScrollToBottom();
     }
 
-    /**
-     * 
-     * Fonction pour masquer l'indicateur de typing ... (entrain d'ecrire )
-     * 
-     */
     function hideTypingIndicator() {
         const typingIndicator = document.getElementById('typingIndicator');
         if (typingIndicator) {
@@ -852,13 +1001,6 @@ if (isset($_GET['id'])) {
         }
     }
 
-    /**
-     * 
-     * 
-     * Une fonction pour l'animation SmoothScroolBottom
-     * 
-     * 
-     */
     function smoothScrollToBottom() {
         chatContainer.scrollTo({
             top: chatContainer.scrollHeight,
@@ -866,33 +1008,16 @@ if (isset($_GET['id'])) {
         });
     }
 
-    /**
-     * 
-     * 
-     * Une fonction pour echapper les caracteres speciaux a la reponse de l'ia 
-     * 
-     * 
-     */
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
 
-    /**
-     * 
-     * L'action d'upload d'un fichier dans le champ de saisi 
-     * 
-     */
     addBtn.addEventListener('click', function() {
         fileInput.click();
     });
 
-    /**
-     * 
-     * Executer de l'action upload 
-     * 
-     */
     fileInput.addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (!file) return;
@@ -901,12 +1026,6 @@ if (isset($_GET['id'])) {
         displayFilePreview(file);
     });
 
-    /**
-     * 
-     * La fonction pour mettre un icone sur un fichier en fonction de son extension 
-     * 
-     * 
-     */
     function displayFilePreview(file) {
         const fileName = document.getElementById('fileName');
         const fileSize = document.getElementById('fileSize');
@@ -961,13 +1080,6 @@ if (isset($_GET['id'])) {
         lucide.createIcons();
     }
 
-    /**
-     * 
-     * 
-     * La fonction pour afficher la taille et le poids d'un fichier 
-     * 
-     * 
-     */
     function formatFileSize(bytes) {
         if (bytes === 0) return '0 Bytes';
         const k = 1024;
@@ -976,25 +1088,12 @@ if (isset($_GET['id'])) {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
-    /**
-     * 
-     * L'action pour supprimer un fichier , si celui ci vient d'etre ajouter dans le champ de saisi 
-     * 
-     * 
-     */
     document.getElementById('removeFile').addEventListener('click', function() {
         uploadedFile = null;
         filePreview.classList.add('hidden');
         fileInput.value = '';
     });
 
-    /**
-     * 
-     * 
-     * action du clique sur le bouton de la selection d'un outil 
-     * 
-     * 
-     */
     toolsBtn.addEventListener('click', function() {
         toolsSelected = !toolsSelected;
         
@@ -1027,68 +1126,70 @@ if (isset($_GET['id'])) {
      * 
      * 
      */
-    modelBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        
-        // Create enhanced dropdown
-        const dropdown = document.createElement('div');
-        dropdown.className = 'absolute bottom-full mb-2 left-0 glass rounded-xl py-2 min-w-[200px] z-50 shadow-2xl border border-purple-500/20';
-        dropdown.innerHTML = availableModels.map(model => {
-            const isSelected = model === currentModel;
-            const descriptions = {
-                'GPT-4': 'Most capable model',
-                'GPT-3.5-Turbo': 'Fast and efficient',
-                'Claude-3': 'Great for analysis',
-                'Gemini-Pro': 'Multimodal AI',
-                'GPT-4-Turbo': 'Latest GPT-4 version'
-            };
+    if (modelBtn) {
+        modelBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
             
-            return `
-                <button class="w-full text-left px-4 py-3 hover:bg-purple-600/20 transition-all text-sm ${isSelected ? 'bg-purple-600/10' : ''} group" data-model="${model}">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <div class="font-medium ${isSelected ? 'text-purple-400' : 'text-gray-200'}">${model}</div>
-                            <div class="text-xs text-gray-500">${descriptions[model] || 'AI Model'}</div>
-                        </div>
-                        ${isSelected ? '<i data-lucide="check" class="w-4 h-4 text-purple-400"></i>' : ''}
-                    </div>
-                </button>
-            `;
-        }).join('');
-        
-        this.parentElement.style.position = 'relative';
-        this.parentElement.appendChild(dropdown);
-        lucide.createIcons();
-        
-        // Handle model selection
-        dropdown.addEventListener('click', function(e) {
-            if (e.target.closest('[data-model]')) {
-                const selectedModel = e.target.closest('[data-model]').getAttribute('data-model');
-                currentModel = selectedModel;
-                localStorage.setItem('selectedModel', currentModel);
+            // Create enhanced dropdown
+            const dropdown = document.createElement('div');
+            dropdown.className = 'absolute bottom-full mb-2 left-0 glass rounded-xl py-2 min-w-[200px] z-50 shadow-2xl border border-purple-500/20';
+            dropdown.innerHTML = availableModels.map(model => {
+                const isSelected = model === currentModel;
+                const descriptions = {
+                    'GPT-4': 'Most capable model',
+                    'GPT-3.5-Turbo': 'Fast and efficient',
+                    'Claude-3': 'Great for analysis',
+                    'Gemini-Pro': 'Multimodal AI',
+                    'GPT-4-Turbo': 'Latest GPT-4 version'
+                };
                 
-                modelBtn.innerHTML = `
-                    <span class="flex items-center space-x-2">
-                        <span>${currentModel}</span>
-                        <i data-lucide="chevron-down" class="w-3 h-3"></i>
-                    </span>
+                return `
+                    <button class="w-full text-left px-4 py-3 hover:bg-purple-600/20 transition-all text-sm ${isSelected ? 'bg-purple-600/10' : ''} group" data-model="${model}">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium ${isSelected ? 'text-purple-400' : 'text-gray-200'}">${model}</div>
+                                <div class="text-xs text-gray-500">${descriptions[model] || 'AI Model'}</div>
+                            </div>
+                            ${isSelected ? '<i data-lucide="check" class="w-4 h-4 text-purple-400"></i>' : ''}
+                        </div>
+                    </button>
                 `;
-                lucide.createIcons();
-                dropdown.remove();
-                showToast(`Switched to ${selectedModel}`, 'info', 2000);
-            }
-        });
-        
-        // Close dropdown when clicking outside
-        setTimeout(() => {
-            document.addEventListener('click', function closeDropdown() {
-                if (dropdown.parentElement) {
+            }).join('');
+            
+            this.parentElement.style.position = 'relative';
+            this.parentElement.appendChild(dropdown);
+            lucide.createIcons();
+            
+            // Handle model selection
+            dropdown.addEventListener('click', function(e) {
+                if (e.target.closest('[data-model]')) {
+                    const selectedModel = e.target.closest('[data-model]').getAttribute('data-model');
+                    currentModel = selectedModel;
+                    localStorage.setItem('selectedModel', currentModel);
+                    
+                    modelBtn.innerHTML = `
+                        <span class="flex items-center space-x-2">
+                            <span>${currentModel}</span>
+                            <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                        </span>
+                    `;
+                    lucide.createIcons();
                     dropdown.remove();
+                    showToast(`Switched to ${selectedModel}`, 'info', 2000);
                 }
-                document.removeEventListener('click', closeDropdown);
             });
-        }, 0);
-    });
+            
+            // Close dropdown when clicking outside
+            setTimeout(() => {
+                document.addEventListener('click', function closeDropdown() {
+                    if (dropdown.parentElement) {
+                        dropdown.remove();
+                    }
+                    document.removeEventListener('click', closeDropdown);
+                });
+            }, 0);
+        });
+    }
 
     /**
      * 
@@ -1097,215 +1198,22 @@ if (isset($_GET['id'])) {
      * 
      * 
      */
-    document.addEventListener('click', function(e) {
-        const button = e.target.closest('button');
-        if (!button) return;
-        
-        if (button.textContent.includes('New Chat')) {
-            const chatContent = chatContainer.querySelector('.max-w-4xl');
-            chatContent.innerHTML = `
-                <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
-                        <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
-                    </div>
-                    <div class="message-bubble rounded-2xl p-5 max-w-3xl">
-                        <div class="prose-custom max-w-none">
-                            <p>Hello! 👋 I'm your AI assistant, ready to help you with a wide range of tasks. I can assist with:</p>
-                            <ul>
-                                <li><strong>Coding & Development</strong> - Write, debug, and explain code</li>
-                                <li><strong>Writing & Content</strong> - Create, edit, and improve text</li>
-                                <li><strong>Analysis & Research</strong> - Analyze data and provide insights</li>
-                                <li><strong>Problem Solving</strong> - Break down complex problems</li>
-                            </ul>
-                            <p>Feel free to ask me anything or try some <code>code examples</code>!</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-            showToast('New conversation started!', 'success');
-            
-            /**
-             * 
-             * Creation d'un nouveau chat 
-             * 
-             */
-            startNewChat().then(chatId => {
-                if (chatId) {
-                    // Correction: Construire l'URL correctement sans accumuler les paramètres
-                    const currentUrl = new URL(window.location.href);
-                    const baseUrl = currentUrl.origin + currentUrl.pathname;
-                    
-                    // Rediriger vers la nouvelle URL
-                    window.location.href = `${baseUrl}?m=1&id=${chatId}`;
-                } else {
-                    showToast('Erreur lors de la création du chat', 'error', 3000);
-                }
-            });
-            
-            // Update header
-            document.querySelector('h2').textContent = 'New Conversation';
-        } else if (button.textContent.includes('Search')) {
-            showSearchModal();
-        } else if (button.textContent.includes('Tools') && !button.id) {
-            showToolsModal();
-        }
-    });
-    /**
-     * 
-     * 
-     * La fonction pour afficher le Modal de Recherche
-     * 
-     * 
-     */
-    function showSearchModal() {
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4';
-        modal.innerHTML = `
-            <div class="glass rounded-2xl p-6 w-full max-w-md mx-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-semibold text-gray-100">Search Conversations</h3>
-                    <button class="p-1 hover:bg-gray-700/50 rounded-lg transition-all" onclick="this.closest('.fixed').remove()">
-                        <i data-lucide="x" class="w-5 h-5 text-gray-400"></i>
-                    </button>
-                </div>
-                <div class="relative">
-                    <input 
-                        type="text" 
-                        placeholder="Search your chat history..." 
-                        class="w-full bg-gray-850/60 border border-gray-700/50 rounded-xl px-4 py-3 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-purple-500/50 transition-all"
-                        autofocus
-                    >
-                    <i data-lucide="search" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
-                </div>
-                <div class="mt-4">
-                    <button class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-xl px-4 py-2.5 text-white font-medium transition-all">
-                        Search
-                    </button>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modal);
-        lucide.createIcons();
-        
-        // Close modal on backdrop click
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.remove();
-            }
-        });
-        
-        // Handle Enter key
-        const input = modal.querySelector('input');
-        input.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const searchTerm = this.value.trim();
-                if (searchTerm) {
-                    showToast(`Searching for: "${searchTerm}"`, 'info');
-                    modal.remove();
-                }
-            }
-        });
-    }
-
-    /**
-     * 
-     * 
-     * La fonction pour afficher la liste des outils 
-     * 
-     * 
-     */
-    function showToolsModal() {
-        const availableTools = [
-            { name: 'Code Interpreter', description: 'Execute and analyze code', icon: 'code' },
-            { name: 'Web Search', description: 'Search the internet for information', icon: 'search' },
-            { name: 'Image Generator', description: 'Create images from text descriptions', icon: 'image' },
-            { name: 'Document Analyzer', description: 'Analyze and extract information from documents', icon: 'file-text' },
-            { name: 'Data Visualizer', description: 'Create charts and graphs from data', icon: 'bar-chart' },
-            { name: 'Language Translator', description: 'Translate text between languages', icon: 'globe' }
-        ];
-        
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4';
-        modal.innerHTML = `
-            <div class="glass rounded-2xl p-6 w-full max-w-lg mx-auto">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-semibold text-gray-100">Available Tools</h3>
-                    <button class="p-1 hover:bg-gray-700/50 rounded-lg transition-all" onclick="this.closest('.fixed').remove()">
-                        <i data-lucide="x" class="w-5 h-5 text-gray-400"></i>
-                    </button>
-                </div>
-                <div class="space-y-3 max-h-96 overflow-y-auto scrollbar-thin">
-                    ${availableTools.map(tool => `
-                        <div class="flex items-center space-x-3 p-3 hover:bg-gray-850/60 rounded-xl transition-all cursor-pointer group">
-                            <div class="w-10 h-10 bg-purple-600/20 border border-purple-500/30 rounded-lg flex items-center justify-center">
-                                <i data-lucide="${tool.icon}" class="w-5 h-5 text-purple-400"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-200 group-hover:text-gray-100">${tool.name}</p>
-                                <p class="text-xs text-gray-500">${tool.description}</p>
-                            </div>
-                            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500 group-hover:text-gray-400"></i>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="mt-6 pt-4 border-t border-gray-800">
-                    <p class="text-xs text-gray-500 text-center">Select tools from the chat input to use them in conversations</p>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modal);
-        lucide.createIcons();
-        
-        // Close modal on backdrop click
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.remove();
-            }
-        });
-        
-        // Handle tool selection
-        modal.addEventListener('click', function(e) {
-            const toolItem = e.target.closest('.group');
-            if (toolItem) {
-                const toolName = toolItem.querySelector('.font-medium').textContent;
-                showToast(`${toolName} selected`, 'success');
-                modal.remove();
-            }
-        });
-    }
-    
-
-    /**
-     * 
-     * La fonction pour lancer un nouveay Chat 
-     * 
-     * 
-     */
     async function startNewChat() {
         const apiUrl = BASE_API_URL+"/api/news_chat/?start=true";
 
         try {
-            // 1. Envoyer la requête GET
             const response = await fetch(apiUrl, {
                 method: "GET"
             });
 
-            // 2. Vérifier si la réponse est OK (code 200)
             if (!response.ok) {
                 throw new Error("Erreur HTTP: " + response.status);
             }
 
-            // 3. Convertir la réponse en JSON
             const data = await response.json();
             console.log("Réponse API:", data);
 
-            // 4. Extraire l'ID
             const chatId = data.id;
-
-            // 5. Retourner l'ID du chat
             return chatId;
         } catch (error) {
             console.error("Erreur lors de la création du chat :", error);
@@ -1323,10 +1231,8 @@ if (isset($_GET['id'])) {
     async function sendPendingMessage(chatId) {
         if (!pendingMessage) return;
         
-        // Afficher le message de l'utilisateur dans l'UI
         addUserMessage(pendingMessage.text, pendingMessage.file, pendingMessage.tools);
         
-        // Afficher l'indicateur de typing
         showTypingIndicator();
         
         const formData = new FormData();
@@ -1354,7 +1260,6 @@ if (isset($_GET['id'])) {
             hideTypingIndicator();
 
             if (data.status === "success") {
-                // Actualise la conversation et l'historique
                 loadChatMessages(chatId);
                 loadChatHistory();
             } else {
@@ -1366,66 +1271,60 @@ if (isset($_GET['id'])) {
             addBotMessage("Erreur de connexion, veuillez réessayer.");
             showToast("Erreur réseau", "error", 3000);
         } finally {
-            // Réinitialiser le message en attente
             pendingMessage = null;
         }
     }
-/**
- * 
- * Fonction pour afficher les historique de chat 
- * 
- * 
- */
-async function loadChatHistory() {
-    const container = document.getElementById("chatHistory");
 
-    try {
-        const response = await fetch(BASE_API_URL+"/api/chat_list/?getHistory=true");
-        if (!response.ok) throw new Error("Erreur API");
+    /**
+     * 
+     * Fonction pour afficher les historique de chat 
+     * 
+     * 
+     */
+    async function loadChatHistory() {
+        const container = document.getElementById("chatHistory");
 
-        const data = await response.json();
+        try {
+            const response = await fetch(BASE_API_URL+"/api/chat_list/?getHistory=true");
+            if (!response.ok) throw new Error("Erreur API");
 
-        // Vider le contenu actuel
-        container.innerHTML = "";
+            const data = await response.json();
 
-        if (data.status === "success" && data.chat) {
-            Object.values(data.chat).forEach(chat => {
-                // Créer l'élément
-                const div = document.createElement("div");
-                div.className = "px-3 py-2.5 rounded-lg hover:bg-gray-850/60 transition-all cursor-pointer group";
+            container.innerHTML = "";
 
-                // Correction: Construire l'URL correctement
-                const currentUrl = new URL(window.location.href);
-                const baseUrl = currentUrl.origin + currentUrl.pathname;
-                
-                // Redirection au clic - utiliser les paramètres d'URL
-                div.addEventListener("click", () => {
-                    window.location.href = `${baseUrl}?m=1&id=${chat.id}`;
+            if (data.status === "success" && data.chat) {
+                Object.values(data.chat).forEach(chat => {
+                    const div = document.createElement("div");
+                    div.className = "px-3 py-2.5 rounded-lg hover:bg-gray-850/60 transition-all cursor-pointer group";
+
+                    const currentUrl = new URL(window.location.href);
+                    const baseUrl = currentUrl.origin + currentUrl.pathname;
+                    
+                    div.addEventListener("click", () => {
+                        window.location.href = `${baseUrl}?m=1&id=${chat.id}`;
+                    });
+
+                    const title = document.createElement("p");
+                    title.className = "text-sm text-gray-300 truncate group-hover:text-gray-100";
+                    title.textContent = chat.title;
+
+                    const time = document.createElement("p");
+                    time.className = "text-xs text-gray-500 mt-0.5";
+                    time.textContent = chat.time_go;
+
+                    div.appendChild(title);
+                    div.appendChild(time);
+                    container.appendChild(div);
                 });
-
-                // Titre
-                const title = document.createElement("p");
-                title.className = "text-sm text-gray-300 truncate group-hover:text-gray-100";
-                title.textContent = chat.title;
-
-                // Time ago
-                const time = document.createElement("p");
-                time.className = "text-xs text-gray-500 mt-0.5";
-                time.textContent = chat.time_go;
-
-                // Ajouter au container
-                div.appendChild(title);
-                div.appendChild(time);
-                container.appendChild(div);
-            });
-        } else {
-            container.innerHTML = "<p class='text-gray-500 text-sm px-3'>Aucun historique trouvé</p>";
+            } else {
+                container.innerHTML = "<p class='text-gray-500 text-sm px-3'>Aucun historique trouvé</p>";
+            }
+        } catch (error) {
+            console.error("Erreur lors du chargement de l'historique :", error);
+            container.innerHTML = "<p class='text-red-500 text-sm px-3'>Erreur de chargement</p>";
         }
-    } catch (error) {
-        console.error("Erreur lors du chargement de l'historique :", error);
-        container.innerHTML = "<p class='text-red-500 text-sm px-3'>Erreur de chargement</p>";
     }
-}
+
     /**
      * 
      * Une fonction pour afficher les conversations dans l'interface 
@@ -1441,53 +1340,48 @@ async function loadChatHistory() {
 
             const data = await response.json();
 
-            chatContainer.innerHTML = "";
+            // Vider le conteneur de chat
+            const chatContent = chatContainer.querySelector('.max-w-4xl');
+            if (chatContent) {
+                chatContent.innerHTML = '';
+            } else {
+                chatContainer.innerHTML = '<div class="max-w-4xl mx-auto space-y-6"></div>';
+            }
+
+            const newChatContent = chatContainer.querySelector('.max-w-4xl');
 
             // Si pas de chat → message par défaut
             if (!data.chat || data.chat.length === 0) {
-                chatContainer.innerHTML = `
-                    <div class="max-w-4xl mx-auto space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
-                                <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
-                            </div>
-                            <div class="message-bubble rounded-2xl p-5 max-w-3xl">
-                                <div class="prose-custom max-w-none" id="botMessage">
-                                    <p><?=$_TEXT['bot']['default_message'];?></p>
-                                </div>
+                newChatContent.innerHTML = `
+                    <div class="flex items-start space-x-4 first-message-mobile">
+                        <div class="w-8 h-8 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <div class="message-bubble rounded-2xl p-5 max-w-3xl">
+                            <div class="prose-custom max-w-none">
+                                <p><?=$_TEXT['bot']['default_message'];?></p>
                             </div>
                         </div>
                     </div>
                 `;
+                lucide.createIcons();
                 return;
             }
 
-            const chatContent = document.createElement("div");
-            chatContent.className = "max-w-4xl mx-auto space-y-6";
-            chatContainer.appendChild(chatContent);
-
-            // Nouvelle boucle pour gérer role:user / role:bot
+            // Afficher les messages du chat
             data.chat.forEach(msg => {
-                const fileData = msg.attach?.file ? {
-                    name: msg.attach.file.name,
-                    size: msg.attach.file.size
-                } : null;
-
                 if (msg.role === "user") {
-                    addUserMessage(msg.content, fileData, msg.attach?.tools || false);
-                } 
-                else if (msg.role === "bot") {
+                    addUserMessage(msg.content, null, false);
+                } else if (msg.role === "bot") {
                     addBotMessage(msg.content);
                 }
             });
 
-            if (window.lucide) {
-                lucide.createIcons();
-            }
+            lucide.createIcons();
 
         } catch (error) {
             console.error("Erreur lors du chargement du chat :", error);
-            chatContainer.innerHTML = "<p class='text-red-500'>Erreur de chargement des messages.</p>";
+            chatContainer.innerHTML = "<p class='text-red-500 p-4'>Erreur de chargement des messages.</p>";
         }
     }
 
@@ -1496,41 +1390,60 @@ async function loadChatHistory() {
      * Executer le fonction dans la page 
      * 
      */
-   document.addEventListener("DOMContentLoaded", () => {
-    // Récupérer l'ID du chat depuis les paramètres d'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const chatId = urlParams.get('id');
-    
-    if (chatId) {
-        // Vérifier s'il y a un message en attente à envoyer
-        if (pendingMessage) {
-            sendPendingMessage(chatId);
+    document.addEventListener("DOMContentLoaded", () => {
+        // Récupérer l'ID du chat depuis les paramètres d'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const chatId = urlParams.get('id');
+        
+        if (chatId) {
+            if (pendingMessage) {
+                sendPendingMessage(chatId);
+            }
+            loadChatMessages(chatId);
         }
         
-        // Charger les messages du chat
-        loadChatMessages(chatId);
-    } else {
-        // Afficher un message d'accueil si aucun ID n'est fourni
-        const chatContainer = document.getElementById("chatContainer");
-        chatContainer.innerHTML = `
-            <div class="max-w-4xl mx-auto space-y-6">
-                <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
-                        <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
-                    </div>
-                    <div class="message-bubble rounded-2xl p-5 max-w-3xl">
-                        <div class="prose-custom max-w-none" id="botMessage">
-                            <p><?=$_TEXT['bot']['default_message'];?></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-    
-    // Charger l'historique des chats
-    loadChatHistory();
-});
-</script>
+        // Charger l'historique des chats
+        loadChatHistory();
+
+        // Gestion des boutons de navigation
+        document.querySelector('.new-chat-btn').addEventListener('click', function() {
+            startNewChat().then(chatId => {
+                if (chatId) {
+                    const currentUrl = new URL(window.location.href);
+                    const baseUrl = currentUrl.origin + currentUrl.pathname;
+                    window.location.href = `${baseUrl}?m=1&id=${chatId}`;
+                }
+            });
+        });
+
+        // Fermer le sidebar sur mobile après clic sur un élément
+        document.querySelectorAll('#chatHistory div').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    closeSidebarFunc();
+                }
+            });
+        });
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+        if (window.innerWidth < 1024) {
+            const isClickInsideSidebar = sidebar.contains(event.target);
+            const isClickOnMenuButton = menuButton && menuButton.contains(event.target);
+            
+            if (!isClickInsideSidebar && !isClickOnMenuButton && sidebar.classList.contains('open')) {
+                closeSidebarFunc();
+            }
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 1024) {
+            closeSidebarFunc();
+        }
+    });
+   </script>
 </body>
 </html>
