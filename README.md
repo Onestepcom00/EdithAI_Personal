@@ -93,7 +93,13 @@ Le projet est désormais plus simple à installer et à utiliser, tout en restan
 **Exauce Stan Malka** (Exauce Malumba)  
 Développeur fullstack, pentesteur senior, ingénieur IA  
 Onestep / Kreatyva  
-Contact : exaustanmalka@icloud.com / +243 977482151
+Contact : exaustanmalka@icloud.com 
+<br>
+> Vous pouvez soutenir le createur de ce projet avec un petit café , cela nous encourage enormement a continuer a vous offrir le meilleur de nous
+<br>
+
+[![Support via Donation](https://img.shields.io/badge/Donate-Here-ff69b4?logo=heart&style=for-the-badge)](https://jxzmkdpz.mychariow.shop/donation)
+
 
 ---
 
